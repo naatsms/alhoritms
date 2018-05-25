@@ -1,5 +1,7 @@
 package DataStructures.HashTables;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Scanner;
 
 class Main {
@@ -31,7 +33,7 @@ class Main {
     }
 }
 
-public class ChainHashTable {
+class ChainHashTable {
     private long MAGIC_NUMBER = 1000000007;
     private int X = 263;
     private int SIZE;
@@ -46,8 +48,10 @@ public class ChainHashTable {
         long result = 0;
         int ii = 0;
         for (char c : s.toCharArray()) {
-            int i = (int) c;
-            result += i * Math.pow(X, ii++);
+            BigInteger i = BigInteger.valueOf((long) c);
+
+            result += i.multiply(BigInteger.valueOf(X).pow(ii++)).mod(BigInteger.valueOf(MAGIC_NUMBER)).intValue();
+            result = result % MAGIC_NUMBER;
         }
         result = (result % MAGIC_NUMBER) % SIZE;
         return (int)result;
@@ -55,15 +59,14 @@ public class ChainHashTable {
 
     public void addString(String s) {
         int hash = getHash(s);
-        Node old = table[hash];
-        if (old == null) table[hash] = new Node(s);
-        else {
-            if (s.equals(old.data)) return;
-            while (old.next != null) {
-                old = old.next;
-                if (s.equals(old.data)) return;
+        if (!find(s, hash)) {
+            Node newNode = new Node(s);
+            Node old = table[hash];
+            if (old == null) table[hash] = newNode;
+            else {
+                newNode.next = old;
+                table[hash] = newNode;
             }
-            old.next = new Node(s);
         }
     }
 
@@ -79,24 +82,30 @@ public class ChainHashTable {
 
     public void find(String s) {
         int hash = getHash(s);
-        Node old = table[hash];
-        if (old == null) System.out.println("no");
+        System.out.println(find(s, hash) ? "yes" : "no");
+    }
+
+    private boolean find(String s, int cell) {
+        Node old = table[cell];
+        if (old == null) {
+            return false;
+        }
         else while(!s.equals(old.data) && old.next != null) {
             old = old.next;
         }
-        if (old != null && s.equals(old.data)) System.out.println("yes");
-        else System.out.println("no");
+        if (s.equals(old.data)) return true;
+        else return false;
     }
 
     public void check(int i) {
         Node old = table[i];
-        if (old == null) System.out.println();
-        else {
-            for (Node n = old; n.next != null; n = n.next) {
-                if (n.data == null) continue;
-                else System.out.println(n.data + " ");
+        if (old != null) {
+            for (Node n = old;; n = n.next) {
+                if (n.data != null) System.out.print(n.data + " ");
+                if (n.next == null) break;
             }
         }
+        System.out.println();
     }
 
     class Node {
