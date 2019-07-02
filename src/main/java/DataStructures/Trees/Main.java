@@ -6,7 +6,19 @@ import java.io.InputStreamReader;
 
 /**
  * @author Goncharenko Mikhail, created on 24.07.2018.
- * 
+ *
+ * + i: добавить число f (i) в множество (если оно уже есть,
+ * проигнорировать запрос);
+ * • - i: удалить число f (i) из множества (если его нет, про-
+ * игнорировать запрос);
+ * • ? i: проверить принадлежность числа f (i) множеству;
+ * • s l r: посчитать сумму всех элементов множества, попа-
+ * дающих в отрезок [f (l), f (r)].
+ * Функция f определяется следующим образом. Пусть s — резуль-
+ * тат последнего запроса суммы на отрезке (если таких запросов
+ * ещё не было, то s = 0). Тогда
+ * f (x) = (x + s) mod 1 000 000 001 .
+ *
  */
 public class Main {
 
@@ -73,6 +85,61 @@ public class Main {
     long result = calcInternal(root, l, r);
     lastResult = result;
     System.out.println(result);
+  }
+
+  private long calcInternal(Node head, long left, long right) {
+    if (head == null) {
+      return 0;
+    }
+    if (head.value < left) {
+      return calcInternal(head.right, left, right);
+    }
+    else if (head.value > right) {
+      return calcInternal(head.left, left, right);
+    }
+    else {
+      return calculate(head, left, right);
+    }
+  }
+
+  private long calculate(Node head, long left, long right) {
+    long l = calcLower(head.left, left);
+    long r = calcHigher(head.right, right);
+    return head.sum - l - r;
+  }
+
+  private long calcLower(Node head, long left) {
+    long result = 0;
+    while (head != null) {
+      if (head.value < left) {
+        result += head.value;
+        if (head.left != null) {
+          result += head.left.sum;
+        }
+        head = head.right;
+      }
+      else {
+        head = head.left;
+      }
+    }
+    return result;
+  }
+
+  private long calcHigher(Node head, long right) {
+    long result = 0;
+    while (head != null) {
+      if (head.value > right) {
+        result += head.value;
+        if (head.right != null) {
+          result += head.right.sum;
+        }
+        head = head.left;
+      }
+      else {
+        head = head.right;
+      }
+    }
+    return result;
   }
 
   private long getNumber(long num) {
@@ -236,61 +303,6 @@ public class Main {
       return findNewHead(node.left);
     }
     return node;
-  }
-
-  private long calcInternal(Node head, long left, long right) {
-    if (head == null) {
-      return 0;
-    }
-    if (head.value < left) {
-      return calcInternal(head.right, left, right);
-    }
-    else if (head.value > right) {
-      return calcInternal(head.left, left, right);
-    }
-    else {
-      return calculate(head, left, right);
-    }
-  }
-
-  private long calculate(Node head, long left, long right) {
-    long l = calcLower(head.left, left);
-    long r = calcHigher(head.right, right);
-    return head.sum - l - r;
-  }
-
-  private long calcLower(Node head, long left) {
-    long result = 0;
-    while (head != null) {
-      if (head.value < left) {
-        result += head.value;
-        if (head.left != null) {
-          result += head.left.sum;
-        }
-        head = head.right;
-      }
-      else {
-        head = head.left;
-      }
-    }
-    return result;
-  }
-
-  private long calcHigher(Node head, long right) {
-    long result = 0;
-    while (head != null) {
-      if (head.value > right) {
-        result += head.value;
-        if (head.right != null) {
-          result += head.right.sum;
-        }
-        head = head.left;
-      }
-      else {
-        head = head.right;
-      }
-    }
-    return result;
   }
 
   private Node find(long number) {
