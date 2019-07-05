@@ -1,6 +1,6 @@
-package DataStructures;
+package datastructures;
 
-import DataStructures.SimpleStructures.TreeHeight;
+import datastructures.simple.TreeHeight;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

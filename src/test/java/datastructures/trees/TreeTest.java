@@ -1,4 +1,4 @@
-package DataStructures.Trees;
+package datastructures.trees;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -10,77 +10,16 @@ import static org.junit.Assert.*;
 
 public class TreeTest {
 
-    private Main testTree;
+    private SummarableTree testTree;
 
     @Before
     public void init() {
-        testTree = new Main();
+        testTree = new SummarableTree();
     }
 
     @After
     public void after() {
         testTree = null;
-    }
-
-    @Test
-    public void addRoot() {
-        testTree.add(1);
-        assertEquals(1, testTree.root.value);
-    }
-
-    @Test
-    public void addThree() {
-        testTree.add(5);
-        testTree.add(7);
-        testTree.add(3);
-        assertEquals(5, testTree.root.value);
-        assertEquals(7, testTree.root.right.value);
-        assertEquals(3, testTree.root.left.value);
-    }
-
-    @Test
-    public void testRebalance() {
-        testTree.add(1);
-        testTree.add(2);
-        testTree.add(3);
-        testTree.add(4);
-        assertEquals(3, testTree.root.right.value);
-    }
-
-    @Test
-    public void testDeleteRightLeaf() {
-        testTree.add(1);
-        testTree.add(2);
-        testTree.add(3);
-        testTree.add(4);
-        testTree.delete(4);;
-        assertNull(testTree.root.right.right);
-        assertEquals(3, testTree.root.right.value);
-    }
-
-    @Test
-    public void testDeleteLeaf() {
-        testTree.add(1);
-        testTree.add(2);
-        testTree.add(3);
-        testTree.add(4);
-        testTree.delete(3);
-        assertEquals(4, testTree.root.right.value);
-    }
-
-    @Test
-    public void testDeleteWithRightLeaf() {
-        testTree.add(8);
-        testTree.add(3);
-        testTree.add(9);
-        testTree.add(1);
-        testTree.add(7);
-        testTree.add(5);
-        testTree.add(6);
-        testTree.delete(3);
-        assertEquals(5, testTree.root.left.value);
-        assertEquals(6, testTree.root.left.right.value);
-        assertEquals(1, testTree.root.left.left.value);
     }
 
     @Test

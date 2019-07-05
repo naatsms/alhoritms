@@ -1,4 +1,4 @@
-import DataStructures.SimpleStructures.QuoteChecker;
+import datastructures.simple.QuoteChecker;
 import org.junit.Assert;
 import org.junit.Test;
 

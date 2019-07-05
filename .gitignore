@@ -26,3 +26,5 @@ target/**
 \.settings/org\.eclipse\.m2e\.core\.prefs
 
 \.vscode/launch\.test\.json
+
+\.idea/sonarlint/issuestore/f/6/f691ae17cd649bdadab0100f2f870904482ff544

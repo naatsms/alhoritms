@@ -1,6 +1,6 @@
-package DataStructures;
+package datastructures;
 
-import DataStructures.SimpleStructures.PackageProcessor;
+import datastructures.simple.PackageProcessor;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package DataStructures.SimpleStructures;
+package datastructures.simple;
 
 import java.util.LinkedList;
 import java.util.List;

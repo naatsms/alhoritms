@@ -1,4 +1,4 @@
-package DataStructures.PriorityQueue;
+package datastructures.priorityqueue;
 
 import java.util.*;
 
