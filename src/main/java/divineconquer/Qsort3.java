@@ -1,3 +1,5 @@
+package divineconquer;
+
 import java.lang.*;
 import java.util.ArrayDeque;
 import java.util.Queue;
